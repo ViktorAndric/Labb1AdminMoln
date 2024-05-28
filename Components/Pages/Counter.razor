@@ -1,0 +1,44 @@
+﻿@page "/counter"
+@using Labb1AdminMoln.Models
+@using Labb1AdminMoln.Data
+@using Microsoft.EntityFrameworkCore
+@rendermode InteractiveServer
+@inject AppDbContext context
+
+<PageTitle>Counter</PageTitle>
+
+<div class="d-flex justify-content-center align-content-center">
+	<EditForm Model="newUser" OnValidSubmit="AddUser">
+		<DataAnnotationsValidator />
+		<ValidationSummary />
+		<div class="form-group">
+			<label for="name">Name:</label>
+			<InputText id="name" class="form-control" @bind-Value="newUser.Name" />
+		</div>
+		<div class="form-group">
+			<label for="age">Age:</label>
+			<InputNumber id="age" class="form-control" @bind-Value="newUser.Age" />
+		</div>
+		<button class="btn btn-primary">Add User</button>
+	</EditForm>
+</div>
+
+
+@code {
+	public List<User> users = new List<User>();
+	public User newUser = new User();
+	private string successMessage;
+	protected override async Task OnInitializedAsync()
+	{
+		users = await context.Users.ToListAsync();
+	}
+
+	public async Task AddUser(EditContext obj)
+	{
+		context.Users.Add(newUser);
+		await context.SaveChangesAsync();
+		successMessage = "User added successfully!";
+		newUser = new User(); // Reset the form
+	}
+
+}

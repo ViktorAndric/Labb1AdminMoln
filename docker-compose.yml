@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  labb1adminmoln:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    ports: 
+        - "8081:8080"
+    networks: 
+        - labb1
+    depends_on: 
+        - sqlserver
+    environment:
+        - "Server=SqlServer,1433;Database=User;User Id=SA;Password=Password123;TrustServerCertificate=True;"
+    
+
+  sqlserver:
+    image: viktorand/labb1sql:latest
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=Password123
+    ports:
+        - "1433:1433"
+    networks:
+        - labb1
+
+networks:
+  labb1:
+    driver: bridge

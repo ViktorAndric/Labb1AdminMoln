@@ -2,12 +2,7 @@
 
 
 A simple Blazor .NET 8 application to add, delete and see name and age of "users".
-Some of the tools and libraries used are: 
-Entity Framework Core
-SQL Server
-Docker
-Docker Compose
-Visual Sturdio 2022
+Some of the tools and libraries used are: Entity Framework Core, SQL Server, Docker, Docker Compose, Visual Sturdio 2022
 
 
 To add just go to the counter page and fill in the fields and press add. 
